@@ -63,7 +63,7 @@ class ImageSitemap(Sitemap):
             optional_tags = image_tags[:]
             url_info['images'] = []
             for idx, img in enumerate(self.images(item)):
-                url_info['images'][idx] = {}
+                url_info['images'].append({})
 
                 # validate required tags.
                 for req_tag in REQUIRED_IMAGE_TAGS:
@@ -71,7 +71,8 @@ class ImageSitemap(Sitemap):
                         raise ImageTagException('<image:%s> is a required tag.' % req_tag)
 
                     url_info['images'][idx][req_tag] = get('%s%s' % (ATTR_PREFIX, req_tag), item, None)
-                    optional_tags.remove(req_tag)
+                    if req_tag in optional_tags:
+                        optional_tags.remove(req_tag)
 
                 # validate the rest of the tags
                 for tag in optional_tags:

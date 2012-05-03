@@ -9,7 +9,9 @@
     <image:image>
       <image:loc>{{ img.loc }}</image:loc>
       {% for tag in img.optional.items %}
+      {% if tag.1 %}
         <image:{{ tag.0 }}>{{ tag.1 }}</image:{{ tag.0 }}>
+      {% endif %}
       {% endfor %}
     </image:image>
     {% endfor %}
