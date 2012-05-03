@@ -19,7 +19,7 @@ setup(
     description = "Google Image Sitemaps builder for Django.",
     license = "LICENSE",
     keywords = "google, django, image, sitemap",
-    url = "https://github.org/akarzim/django-image-sitemaps/",
+    url = "https://github.org/akarzim/image-sitemaps/",
     include_package_data = True,
     classifiers=[
         "Development Status :: 3 - Alpha",
