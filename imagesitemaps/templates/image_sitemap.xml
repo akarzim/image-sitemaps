@@ -5,12 +5,14 @@
 {% for url in urlset %}
   <url>
     <loc>{{ url.location }}</loc>
+    {% for img in url.images %}
     <image:image>
-      <image:loc>{{ url.loc }}</image:loc>
-      {% for tag in url.optional.items %}
+      <image:loc>{{ img.loc }}</image:loc>
+      {% for tag in img.optional.items %}
         <image:{{ tag.0 }}>{{ tag.1 }}</image:{{ tag.0 }}>
       {% endfor %}
     </image:image>
+    {% endfor %}
    </url>
 {% endfor %}
 {% endspaceless %}

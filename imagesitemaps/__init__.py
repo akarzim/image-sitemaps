@@ -30,6 +30,9 @@ class ImageSitemap(Sitemap):
     def image_title(self, obj):
         return unicode(obj)
 
+    def images(self, obj):
+        return [obj]
+
     def get_urls(self, page=1, site=None):
         if site is None:
             if Site._meta.installed:
@@ -58,21 +61,25 @@ class ImageSitemap(Sitemap):
             }
 
             optional_tags = image_tags[:]
-            # validate required tags.
-            for req_tag in REQUIRED_IMAGE_TAGS:
-                if not req_tag in image_tags:
-                    raise ImageTagException('<image:%s> is a required tag.' % req_tag)
+            url_info['images'] = []
+            for idx, img in enumerate(self.images(item)):
+                url_info['images'][idx] = {}
 
-                url_info[req_tag] = get('%s%s' % (ATTR_PREFIX, req_tag), item, None)
-                optional_tags.remove(req_tag)
+                # validate required tags.
+                for req_tag in REQUIRED_IMAGE_TAGS:
+                    if not req_tag in image_tags:
+                        raise ImageTagException('<image:%s> is a required tag.' % req_tag)
 
-            # validate the rest of the tags
-            for tag in optional_tags:
-                if not tag in OPTIONAL_IMAGE_TAGS:
-                    raise ImageTagException('<image:%s> tag is not supported.' % tag)
+                    url_info['images'][idx][req_tag] = get('%s%s' % (ATTR_PREFIX, req_tag), item, None)
+                    optional_tags.remove(req_tag)
 
-            url_info['optional'] = {}
-            for tag in optional_tags:
-                url_info['optional'][tag] = get('%s%s' % (ATTR_PREFIX, tag), item, None)
+                # validate the rest of the tags
+                for tag in optional_tags:
+                    if not tag in OPTIONAL_IMAGE_TAGS:
+                        raise ImageTagException('<image:%s> tag is not supported.' % tag)
+
+                url_info['images'][idx]['optional'] = {}
+                for tag in optional_tags:
+                    url_info['images'][idx]['optional'][tag] = get('%s%s' % (ATTR_PREFIX, tag), item, None)
             urls.append(url_info)
         return urls
