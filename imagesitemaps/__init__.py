@@ -70,7 +70,7 @@ class ImageSitemap(Sitemap):
                     if not req_tag in image_tags:
                         raise ImageTagException('<image:%s> is a required tag.' % req_tag)
 
-                    url_info['images'][idx][req_tag] = get('%s%s' % (ATTR_PREFIX, req_tag), item, None)
+                    url_info['images'][idx][req_tag] = get('%s%s' % (ATTR_PREFIX, req_tag), img, None)
                     if req_tag in optional_tags:
                         optional_tags.remove(req_tag)
 
@@ -81,6 +81,6 @@ class ImageSitemap(Sitemap):
 
                 url_info['images'][idx]['optional'] = {}
                 for tag in optional_tags:
-                    url_info['images'][idx]['optional'][tag] = get('%s%s' % (ATTR_PREFIX, tag), item, None)
+                    url_info['images'][idx]['optional'][tag] = get('%s%s' % (ATTR_PREFIX, tag), img, None)
             urls.append(url_info)
         return urls
