@@ -14,7 +14,7 @@ setup(
     version = '1.0 alpha',
     install_requires = ['django>=1.3'],
     packages = find_packages(),
-    author = "Franços Vantomme",
+    author = "Francois Vantomme",
     author_email = "akarzim@gmail.com",
     description = "Google Image Sitemaps builder for Django.",
     license = "LICENSE",
