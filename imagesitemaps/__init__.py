@@ -24,11 +24,11 @@ class ImageSitemap(Sitemap):
     Represents a Google image sitemap.
     """
 
-    def image_loc(self, obj):
-        return obj.get_absolute_url()
+    def image_loc(self, img):
+        return img.get_absolute_url()
 
-    def image_title(self, obj):
-        return unicode(obj)
+    def image_title(self, img):
+        return unicode(img)
 
     def images(self, obj):
         return [obj]

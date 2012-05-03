@@ -40,11 +40,11 @@ class TestImageSitemap(ImageSitemap):
     def location(self, obj):
         return obj.location
 
-    def image_title(self, obj):
-        return obj.title
+    def image_title(self, img):
+        return img.title
 
-    def image_caption(self, obj):
-        return obj.caption
+    def image_caption(self, img):
+        return img.caption
 
 image_sitemaps = {
     '' : TestImageSitemap,
