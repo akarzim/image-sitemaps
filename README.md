@@ -7,7 +7,7 @@ Google image sitemaps for Django. More informations about image sitemaps on [Goo
 You can get image-sitemaps from pypi with:
 
 ```shell
-pip install image-sitemaps
+pip install django-image-sitemaps
 ```
 
 The development version can be installed with:
