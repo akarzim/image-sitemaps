@@ -11,7 +11,7 @@ from setuptools import setup, find_packages
 # setup itself.
 setup(
     name = "Django image sitemaps",
-    version = '1.0',
+    version = '1.02',
     install_requires = ['django>=1.3'],
     packages = find_packages(),
     author = "Francois Vantomme",
@@ -19,7 +19,7 @@ setup(
     description = "Google Image Sitemaps builder for Django.",
     license = "BSD License",
     keywords = "google, django, image, sitemap",
-    url = "https://github.org/akarzim/image-sitemaps/",
+    url = "https://github.com/akarzim/image-sitemaps/",
     include_package_data = True,
     classifiers=[
         "Development Status :: 5 - Production/Stable",
