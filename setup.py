@@ -10,7 +10,7 @@ from setuptools import setup, find_packages
 
 # setup itself.
 setup(
-    name = "Django image sitemaps",
+    name = "django-image-sitemaps",
     version = '1.02',
     install_requires = ['django>=1.3'],
     packages = find_packages(),
@@ -20,6 +20,7 @@ setup(
     license = "BSD License",
     keywords = "google, django, image, sitemap",
     url = "https://github.com/akarzim/image-sitemaps/",
+    #download_url = "https://github.com/akarzim/image-sitemaps/tarball/master",
     include_package_data = True,
     classifiers=[
         "Development Status :: 5 - Production/Stable",
