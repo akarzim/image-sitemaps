@@ -11,9 +11,10 @@ from setuptools import setup, find_packages
 # setup itself.
 setup(
     name = "django-image-sitemaps",
-    version = '1.03',
+    version = '1.05',
     install_requires = ['django>=1.3'],
     packages = find_packages(),
+    data_files=[('imagesitemaps/templates', ['imagesitemaps/templates/image_sitemap.xml'])],
     author = "Francois Vantomme",
     author_email = "akarzim@gmail.com",
     description = "Google Image Sitemaps builder for Django.",
