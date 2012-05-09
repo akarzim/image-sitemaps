@@ -11,7 +11,7 @@ from setuptools import setup, find_packages
 # setup itself.
 setup(
     name = "django-image-sitemaps",
-    version = '1.02',
+    version = '1.03',
     install_requires = ['django>=1.3'],
     packages = find_packages(),
     author = "Francois Vantomme",
