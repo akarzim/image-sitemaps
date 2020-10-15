@@ -13,7 +13,7 @@ pip install django-image-sitemaps
 The development version can be installed with:
 
 ```shell
-pip install -e git://github.com/akarzim/image-sitemaps#egg=image-sitemaps
+pip install -e git+git://github.com/akarzim/image-sitemaps#egg=image-sitemaps
 ```
 
 image-sitemaps introduce a new XML template therefore you should add it to your INSTALLED_APPS in settings.py:
@@ -82,8 +82,8 @@ imagesitemaps = {
 }
 
 urlpatterns += patterns('imagesitemaps.views',
-    url(r'^sitemap-image\.xml$', 'index', {'sitemaps': imagesitemaps}),
-    url(r'^sitemap-image-(?P<section>.+)\.xml$', 'sitemap', {'sitemaps': imagesitemaps}),
+    url(r'^sitemap-image\.xml$', 'index', {'sitemaps': imagesitemaps, 'template_name': 'image_sitemap.xml'}),
+    url(r'^sitemap-image-(?P<section>.+)\.xml$', 'sitemap', {'sitemaps': imagesitemaps, 'template_name': 'image_sitemap.xml'}),
 )
 ```
 
