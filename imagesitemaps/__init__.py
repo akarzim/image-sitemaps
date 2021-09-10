@@ -43,7 +43,10 @@ class ImageSitemap(Sitemap):
                 raise ImproperlyConfigured("In order to use Sitemaps you must either use the sites framework or pass in a Site or RequestSite object in your view code.")
 
         urls = []
-        get = self._Sitemap__get
+        try:
+            get = self._Sitemap__get
+        except AttributeError:  # Django >= 3.2
+            get = self._get
 
         # methods with this prefix will be treated as image tags.
         ATTR_PREFIX = 'image_'
