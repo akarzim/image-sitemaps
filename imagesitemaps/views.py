@@ -1,8 +1,8 @@
 from django.contrib.sites.models import Site
-from django.core import urlresolvers
 from django.core.paginator import EmptyPage, PageNotAnInteger
 from django.http import Http404, HttpResponse
 from django.template import loader
+from django.urls import reverse
 from django.utils.encoding import smart_str
 
 
@@ -20,7 +20,7 @@ def index(request, sitemaps):
             pages = site().paginator.num_pages
         else:
             pages = site.paginator.num_pages
-        sitemap_url = urlresolvers.reverse(
+        sitemap_url = reverse(
             "imagesitemaps.views.sitemap", kwargs={"section": section}
         )
         sites.append("%s://%s%s" % (protocol, current_site.domain, sitemap_url))
@@ -31,7 +31,7 @@ def index(request, sitemaps):
                     % (protocol, current_site.domain, sitemap_url, page)
                 )
     xml = loader.render_to_string("sitemap_index.xml", {"sitemaps": sites})
-    return HttpResponse(xml, mimetype="application/xml")
+    return HttpResponse(xml, content_type="application/xml")
 
 
 def sitemap(request, sitemaps, section=None):
@@ -54,4 +54,4 @@ def sitemap(request, sitemaps, section=None):
         except PageNotAnInteger:
             raise Http404("No page '%s'" % page)
     xml = smart_str(loader.render_to_string("image_sitemap.xml", {"urlset": urls}))
-    return HttpResponse(xml, mimetype="application/xml")
+    return HttpResponse(xml, content_type="application/xml")
