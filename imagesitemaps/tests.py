@@ -5,7 +5,8 @@ Test Google Image Sitemaps
 from importlib import import_module
 
 from django.conf import settings
-from django.test import TestCase
+from django.core.exceptions import ImproperlyConfigured
+from django.test import TestCase, override_settings
 from django.urls import path, reverse
 
 from imagesitemaps import ImageSitemap, views
@@ -84,6 +85,15 @@ class ImageSitemapTest(TestCase):
         ]
         self.sitemap_view = reverse("test_image_sitemap")
         self.test_objects = [i for i in get_test_objects()]
+
+    @override_settings(SITE_ID=2)
+    def test_no_site_error(self):
+        with self.assertRaisesRegex(
+            ImproperlyConfigured,
+            "^In order to use Sitemaps you must either use the sites framework or "
+            "pass in a Site or RequestSite object in your view code.$",
+        ):
+            ImageSitemap().get_urls()
 
     def get_document(self):
         from xml.dom.minidom import parseString
