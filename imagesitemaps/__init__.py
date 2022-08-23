@@ -36,11 +36,10 @@ class ImageSitemap(Sitemap):
         from django.contrib.sites.models import Site
 
         if site is None:
-            if Site._meta.installed:
-                try:
-                    site = Site.objects.get_current()
-                except Site.DoesNotExist:
-                    pass
+            try:
+                site = Site.objects.get_current()
+            except Site.DoesNotExist:
+                pass
             if site is None:
                 raise ImproperlyConfigured(
                     "In order to use Sitemaps you must either use the sites framework or "
