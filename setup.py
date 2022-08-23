@@ -7,12 +7,13 @@ except ImportError:
     pass
 
 from setuptools import setup, find_packages
+requirements = open("requirements.txt").readlines()
 
 # setup itself.
 setup(
     name = "django-image-sitemaps",
     version = '1.1.0',
-    install_requires = ['django>=1.3'],
+    install_requires = requirements,
     packages = find_packages(),
     author = "Francois Vantomme",
     author_email = "akarzim@gmail.com",
