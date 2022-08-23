@@ -5,15 +5,15 @@ Test Google Image Sitemaps
 from importlib import import_module
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.test import TestCase
-from django.urls import path, patterns
+from django.urls import path, reverse
 
-from imagesitemaps import ImageSitemap
+from imagesitemaps import ImageSitemap, views
 
 
 class TestSitemapObject(object):
-    pass
+    def get_absolute_url(self):
+        return "foo"
 
 
 TEST_IMAGE_TAGS = ("loc", "title", "caption", "license")
@@ -45,7 +45,7 @@ def get_test_objects():
     for val in TEST_VALUES:
         obj = TestSitemapObject()
         setattr(obj, "location", val[0])
-        val = val[1:]
+        # val = val[1:]
         for i, tag in enumerate(TEST_IMAGE_TAGS):
             setattr(obj, tag, val[i])
         yield obj
@@ -74,15 +74,14 @@ class ImageSitemapTest(TestCase):
     def setUp(self):
         self.urlconf = import_module(settings.ROOT_URLCONF)
         self.original_urlpatterns = self.urlconf.urlpatterns[:]
-        self.urlconf.urlpatterns += patterns(
-            "",
+        self.urlconf.urlpatterns += [
             path(
                 "image_sitemap.xml",
-                "imagesitemaps.views.sitemap",
+                views.sitemap,
                 {"sitemaps": image_sitemaps},
                 name="test_image_sitemap",
             ),
-        )
+        ]
         self.sitemap_view = reverse("test_image_sitemap")
         self.test_objects = [i for i in get_test_objects()]
 
@@ -107,13 +106,30 @@ class ImageSitemapTest(TestCase):
         self.assertTrue(urlset.hasAttribute("xmlns"))
         urls = urlset.getElementsByTagName("url")
         self.assertEqual(len(urls), len(self.test_objects))
+        result_xml = []
         for url in urls:
             locs = url.getElementsByTagName("loc")
             self.assertTrue(len(locs), 1)
             images = url.getElementsByTagName("image:image")
             self.assertTrue(len(images), 1)
             image = images[0]
-            self.assertEqual(image, "")
+            result_xml.append(image.toprettyxml())
+        self.assertEqual(len(result_xml), 3)
+        self.assertEqual(
+            result_xml[0],
+            "<image:image>\n\t<image:loc>foo</image:loc>\n\t<image:caption>HTML 5</image:caption>"
+            "\n\t<image:title>HTML5</image:title>\n</image:image>\n",
+        )
+        self.assertEqual(
+            result_xml[1],
+            "<image:image>\n\t<image:loc>foo</image:loc>\n\t<image:caption>5 doors Honda</image:caption>"
+            "\n\t<image:title>Honda 5D</image:title>\n</image:image>\n",
+        )
+        self.assertEqual(
+            result_xml[2],
+            "<image:image>\n\t<image:loc>foo</image:loc>\n\t<image:caption>Completely golden</image:caption>"
+            "\n\t<image:title>Golden apple</image:title>\n</image:image>\n",
+        )
 
     def tearDown(self):
         self.urlconf.urlpatterns = self.original_urlpatterns
