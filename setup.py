@@ -8,7 +8,7 @@ requirements = open("requirements.txt").readlines()
 # setup itself.
 setup(
     name="django-image-sitemaps",
-    version="1.1.0",
+    version="1.2.0",
     install_requires=requirements,
     packages=find_packages(),
     author="Francois Vantomme",
