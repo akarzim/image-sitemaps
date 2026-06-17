@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> Moved to [Codeberg](https://codeberg.org/akarzim/image-sitemaps)
+
 # image-sitemaps
 
 Google image sitemaps for Django. More informations about image sitemaps on [Google Webmaster Tools](http://support.google.com/webmasters/bin/answer.py?hl=en&answer=178636&topic=20986&ctx=topic).
